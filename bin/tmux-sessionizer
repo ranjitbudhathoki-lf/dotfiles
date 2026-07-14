@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+selected=$(find ~/vyaguta ~ -mindepth 1 -maxdepth 2 -type d | fzf)
+
+if [[ -z $selected ]]; then
+  exit 0
+fi
+
+session_name=$(basename "$selected" | tr . _)
+
+if ! tmux has-session -t="$session_name" 2>/dev/null; then
+  tmux new-session -ds "$session_name" -c "$selected"
+fi
+
+if [[ -z $TMUX ]]; then
+  tmux attach -t "$session_name" # outside tmux → attach
+else
+  tmux switch-client -t "$session_name" # inside tmux → switch
+fi
