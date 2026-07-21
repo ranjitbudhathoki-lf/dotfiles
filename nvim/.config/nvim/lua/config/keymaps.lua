@@ -5,5 +5,5 @@
 vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diff View" })
 
 vim.keymap.set("n", "<leader>fF", function()
-  Snacks.picker.files({ hidden = true, no_ignore = true })
+  Snacks.picker.files({ hidden = true, no_ignore = true, follow = true })
 end, { desc = "Find Files (hidden)" })
